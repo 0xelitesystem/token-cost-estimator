@@ -26,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Mono",monospace
   padding:40px 16px;line-height:1.55}
 .wrap{max-width:720px;margin:0 auto}
 .form{background:var(--form);border:1px solid var(--rule);position:relative}
-.band{background:var(--band);color:#fff8e8;padding:8px 22px;display:flex;justify-content:space-between;
+.band{background:var(--band);color:#0a0a0a;padding:8px 22px;display:flex;justify-content:space-between;
   font-weight:700;letter-spacing:.18em;font-size:12px;text-transform:uppercase}
 .body{padding:26px 26px 24px}
 h1{font-weight:700;font-size:23px;margin:0 0 2px;letter-spacing:.02em}
@@ -61,10 +61,15 @@ input.cur{padding-left:20px}
 /* elitesystem brand tokens: chrome only, meaning preserved */
 :root, :root[data-theme="dark"] {
   --bg: #0a0a0a;
-  --faint: #6e6e68;
+  --faint: #8f8f89;
   --field: #111110;
   --ink: #e8e8e3;
   --rule: #1f1f1d;
+  /* This page is dark in every OS colour scheme, so the form, band, stop and focus tokens are pinned to dark values too. */
+  --band: #b5772f;
+  --blue: #7aa0c4;
+  --form: #2c2719;
+  --red: #ff6450;
 }
 :root[data-theme="light"] {
   --bg: #e8ebef;
@@ -76,6 +81,109 @@ input.cur{padding-left:20px}
 :root { color-scheme: dark; }
 :root[data-theme="light"] { color-scheme: light; }
 </style>
+<!--
+Third-party font notices for this page. Subsets of the fonts below are embedded in this page as base64 data.
+Each is used under its own license, not under the MIT License of this page.
+
+Space Mono (https://github.com/google/fonts/tree/main/ofl/spacemono)
+Copyright 2016 The Space Mono Project Authors (https://github.com/googlefonts/spacemono)
+License: SIL Open Font License, Version 1.1
+
+Full license text:
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+-->
 </head>
 <body>
 <div class="wrap">
@@ -85,22 +193,22 @@ input.cur{padding-left:20px}
     <h1>Token Cost Estimator</h1>
     <div class="sub">Paste a prompt, set the rates your provider charges, read the cost. No key is asked for and nothing is sent anywhere.</div>
 
-    <div class="lbl">Prompt text (counted as input)</div>
-    <textarea id="prompt" placeholder="Paste the prompt you would send...">Summarize the following customer email in three bullet points, then suggest a one-line reply that is polite and direct.</textarea>
+    <div class="lbl" id="promptLbl">Prompt text (counted as input)</div>
+    <textarea id="prompt" aria-labelledby="promptLbl" placeholder="Paste the prompt you would send...">Summarize the following customer email in three bullet points, then suggest a one-line reply that is polite and direct.</textarea>
     <div class="tick"><span id="chars">0 chars</span><span class="stop">STOP</span><span id="inTok">~0 input tokens</span></div>
 
     <div class="grid">
-      <div class="fl"><label>Expected output<small> tokens per call</small></label>
+      <div class="fl"><label for="outTok">Expected output<small> tokens per call</small></label>
         <input id="outTok" type="number" min="0" step="1" value="300"></div>
-      <div class="fl"><label>Calls<small> how many runs</small></label>
+      <div class="fl"><label for="calls">Calls<small> how many runs</small></label>
         <input id="calls" type="number" min="1" step="1" value="1000"></div>
     </div>
 
     <div class="lbl">Provider rates, per 1,000,000 tokens</div>
     <div class="grid">
-      <div class="fl"><label>Input price</label>
+      <div class="fl"><label for="inPrice">Input price</label>
         <div class="ig"><span class="u">$</span><input id="inPrice" class="cur" type="number" min="0" step="any" value="3"></div></div>
-      <div class="fl"><label>Output price</label>
+      <div class="fl"><label for="outPrice">Output price</label>
         <div class="ig"><span class="u">$</span><input id="outPrice" class="cur" type="number" min="0" step="any" value="15"></div></div>
     </div>
 
