@@ -14,13 +14,39 @@ Because you enter the rates, it works for any provider. Token counts are estimat
 
 A yellow telegram wire form: banded header, monospace body, and stop markers between the character count and the token estimate.
 
+## Use
+
+Open `index.html` in any modern browser, or host it as a static page. No build step, no dependencies, no network calls.
+
+1. Paste the prompt you would send.
+2. Enter the expected output tokens per call and the number of calls.
+3. Enter the input and output prices per million tokens from your provider's pricing page.
+4. Read tokens per call, cost per call, and the total across all calls, split into input and output.
+
+## Why this exists
+
+Pricing pages quote rates per million tokens, which is hard to map onto a real prompt and a real call volume in your head. This page does that arithmetic before you wire a prompt into anything. It is one HTML file with no API key, no tracking and no network calls, released under MIT.
+
 ## Privacy
 
 Everything runs in your browser. Nothing you type is sent anywhere, stored, or saved. Closing the tab clears it.
 
-## Use it
+## Run locally
 
-Open `index.html` in any modern browser, or host it as a static page. No build step, no dependencies, no network calls.
+```
+git clone https://github.com/0xelitesystem/token-cost-estimator
+cd token-cost-estimator
+```
+
+Open `index.html` in any browser. Or serve the folder and visit http://localhost:8000:
+
+```
+python -m http.server 8000
+```
+
+## Build
+
+No build step. The whole tool is one `index.html` file with inline CSS and JavaScript.
 
 ## More
 
